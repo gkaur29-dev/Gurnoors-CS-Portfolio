@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gurnoor's CS Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        /* Design Code: General Styles and Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Faint Sage/Pewter Background */
+            background-color: #E6EBE0; 
+            position: relative; 
+            overflow-x: hidden;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-20px) rotate(5deg); opacity: 1; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+        }
+
+        .moving-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 0; 
+            animation: float 5s ease-in-out infinite alternate;
+        }
+
+        /* Floating Emoji Positions */
+        .emoji-1 { top: 10%; left: 5%; animation-delay: 0.5s; }
+        .emoji-2 { top: 35%; right: 10%; animation-duration: 6s; }
+        .emoji-3 { bottom: 20%; left: 15%; animation-delay: 1.5s; }
+        .emoji-4 { top: 60%; left: 70%; animation-duration: 4.5s; }
+        .emoji-5 { bottom: 5%; right: 5%; animation-delay: 2s; }
+        .emoji-6 { top: 25%; left: 40%; animation-duration: 5.5s; }
+        .emoji-7 { top: 80%; left: 30%; animation-delay: 3s; animation-duration: 4s; }
+        .emoji-8 { top: 5%; right: 50%; animation-duration: 7s; animation-delay: 1s; }
+        .emoji-9 { bottom: 30%; right: 30%; animation-delay: 2.5s; animation-duration: 6.5s; }
+        .emoji-10 { top: 45%; left: 1%; animation-delay: 0s; animation-duration: 5s; }
+
+        /* Custom color for Light Pink/Rose cards: #F0DADA */
+        .bg-light-pink {
+            background-color: #F0DADA;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- --- Floating Emojis --- -->
+    <span class="moving-emoji emoji-1" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-3" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-5" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-7" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-8" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-2" style="color:#A5B4A8;">🌿</span>
+    <span class="moving-emoji emoji-4" style="color:#A5B4A8;">🌿</span>
+    <span class="moving-emoji emoji-6" style="color:#A5B4A8;">🌿</span>
+    <span class="moving-emoji emoji-9" style="color:#A5B4A8;">🌿</span>
+    <span class="moving-emoji emoji-10" style="color:#A5B4A8;">🌿</span>
+    <!-- --- END Floating Emojis --- -->
+
+    <!-- Header Section -->
+    <header class="p-6 md:p-10 shadow-lg relative z-10" style="background-color: #A5B4A8;"> <!-- Duller Sage-Green -->
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#3A403A]">
+                <span class="inline-block transform rotate-12" style="color:#F0DADA;">✨</span> Gurnoor's CS Portfolio
+            </h1>
+            <nav>
+                 <a href="#about" class="text-lg font-semibold text-[#3A403A] hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] mr-4">
+                    About
+                </a>
+                <a href="#games" class="text-lg font-semibold text-[#3A403A] hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0]">
+                    Games
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About the Creator Section -->
+    <section id="about" class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+        <div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-[#F0DADA]">
+            <h2 class="text-3xl font-bold text-[#3A403A] mb-4 flex items-center">
+                <span class="text-4xl mr-3">👋</span> About the Creator: Gurnoor
+            </h2>
+            <p class="text-[#3A403A] mb-4">
+                Welcome! I'm Gurnoor, a Computer Science enthusiast with a passion for **creating engaging and technically sound software**. This portfolio showcases my journey into game development, focusing on implementing robust algorithms and clean object-oriented design.
+            </p>
+            <p class="text-[#3A403A]">
+                I enjoy projects that challenge me to integrate complex logic, from **A\* pathfinding** in Python to **state management** in JavaScript. Take a look at my work below!
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content: Game Grid -->
+    <main class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+        <h2 id="games" class="text-4xl font-bold text-center mb-12 text-[#3A403A] border-b-4 border-[#A5B4A8] pb-2">
+            My Creative Creations 👾
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Game Card 1: Nebula Navigator -->
+            <div class="game-card bg-light-pink p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                <div class="text-6xl text-center mb-4">🚀</div>
+                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Nebula Navigator</h3>
+                <p class="text-[#3A403A] mb-4 text-sm">
+                    A star-hopping puzzle game developed using Python and Pygame. Features custom pathfinding algorithms.
+                </p>
+                <div class="flex justify-between items-center text-xs text-gray-600">
+                    <span><span class="font-semibold">Tech:</span> Python, Pygame</span>
+                    <span><span class="font-semibold">Year:</span> 2024</span>
+                </div>
+                <!-- UNIQUE LINK 1 -->
+                <a href="nebula_navigator_detail.html?game=Nebula+Navigator" 
+                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                    See Game
+                </a>
+            </div>
+
+            <!-- Game Card 2: Pixel Pet Adventures -->
+            <div class="game-card bg-[#C2C9C2] p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                <div class="text-6xl text-center mb-4">💖</div>
+                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Pixel Pet Adventures</h3>
+                <p class="text-[#3A403A] mb-4 text-sm">
+                    A virtual pet simulator with persistent state using local storage (for the demo). Focused on object-oriented design.
+                </p>
+                <div class="flex justify-between items-center text-xs text-gray-600">
+                    <span><span class="font-semibold">Tech:</span> JavaScript, HTML5</span>
+                    <span><span class="font-semibold">Year:</span> 2023</span>
+                </div>
+                <!-- UNIQUE LINK 2 -->
+                <a href="pixel_pet_adventures_detail.html?game=Pixel+Pet+Adventures" 
+                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                    See Game
+                </a>
+            </div>
+
+            <!-- Game Card 3: Quantum Chess -->
+            <div class="game-card bg-light-pink p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                <div class="text-6xl text-center mb-4">👑</div>
+                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Quantum Chess</h3>
+                <p class="text-[#3A403A] mb-4 text-sm">
+                    A conceptual board game exploring state superposition. Implemented complex decision tree logic (Minimax).
+                </p>
+                <div class="flex justify-between items-center text-xs text-gray-600">
+                    <span><span class="font-semibold">Tech:</span> C++, SFML</span>
+                    <span><span class="font-semibold">Year:</span> 2022</span>
+                </div>
+                <!-- UNIQUE LINK 3 -->
+                <a href="quantum_chess_detail.html?game=Quantum+Chess" 
+                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                    See Game
+                </a>
+            </div>
+
+            <!-- Game Card 4: Dungeon Crawler -->
+            <div class="game-card bg-[#C2C9C2] p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                <div class="text-6xl text-center mb-4">🏰</div>
+                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">The Rogue Labyrinth</h3>
+                <p class="text-[#3A403A] mb-4 text-sm">
+                    A procedurally generated 2D dungeon crawler. Focused on efficient map generation algorithms.
+                </p>
+                <div class="flex justify-between items-center text-xs text-gray-600">
+                    <span><span class="font-semibold">Tech:</span> C#, Unity</span>
+                    <span><span class="font-semibold">Year:</span> 2024</span>
+                </div>
+                <!-- UNIQUE LINK 4 -->
+                <a href="rogue_labyrinth_detail.html?game=The+Rogue+Labyrinth" 
+                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                    See Game
+                </a>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="p-6 mt-12 text-center text-sm text-[#3A403A] relative z-10" style="background-color: #A5B4A8;"> <!-- Duller Sage-Green -->
+        <p>&copy; 2024 Gurnoor's Code Creations. All rights reserved. | Built with <span style="color:#F0DADA;">✨</span> and Tailwind CSS.</p>
+    </footer>
+</body>
+</html>
