@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gurnoor's CS Portfolio</title>
+    <title>Gurnoor's CS Portfolio - Single Page</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Use Inter font family -->
     <style>
         /* Design Code: General Styles and Font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
@@ -28,6 +27,7 @@
             font-size: 2.5rem;
             z-index: 0; 
             animation: float 5s ease-in-out infinite alternate;
+            pointer-events: none; /* Make them ignore mouse clicks */
         }
 
         /* Floating Emoji Positions */
@@ -36,16 +36,11 @@
         .emoji-3 { bottom: 20%; left: 15%; animation-delay: 1.5s; }
         .emoji-4 { top: 60%; left: 70%; animation-duration: 4.5s; }
         .emoji-5 { bottom: 5%; right: 5%; animation-delay: 2s; }
-        .emoji-6 { top: 25%; left: 40%; animation-duration: 5.5s; }
-        .emoji-7 { top: 80%; left: 30%; animation-delay: 3s; animation-duration: 4s; }
-        .emoji-8 { top: 5%; right: 50%; animation-duration: 7s; animation-delay: 1s; }
-        .emoji-9 { bottom: 30%; right: 30%; animation-delay: 2.5s; animation-duration: 6.5s; }
-        .emoji-10 { top: 45%; left: 1%; animation-delay: 0s; animation-duration: 5s; }
-
-        /* Custom color for Light Pink/Rose cards: #F0DADA */
-        .bg-light-pink {
-            background-color: #F0DADA;
-        }
+        
+        /* Custom colors */
+        .bg-sage-light { background-color: #A5B4A8; }
+        .bg-light-pink { background-color: #F0DADA; }
+        .text-sage-dark { color: #3A403A; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -54,132 +49,303 @@
     <span class="moving-emoji emoji-1" style="color:#F0DADA;">✨</span>
     <span class="moving-emoji emoji-3" style="color:#F0DADA;">✨</span>
     <span class="moving-emoji emoji-5" style="color:#F0DADA;">✨</span>
-    <span class="moving-emoji emoji-7" style="color:#F0DADA;">✨</span>
-    <span class="moving-emoji emoji-8" style="color:#F0DADA;">✨</span>
     <span class="moving-emoji emoji-2" style="color:#A5B4A8;">🌿</span>
     <span class="moving-emoji emoji-4" style="color:#A5B4A8;">🌿</span>
-    <span class="moving-emoji emoji-6" style="color:#A5B4A8;">🌿</span>
-    <span class="moving-emoji emoji-9" style="color:#A5B4A8;">🌿</span>
-    <span class="moving-emoji emoji-10" style="color:#A5B4A8;">🌿</span>
     <!-- --- END Floating Emojis --- -->
 
     <!-- Header Section -->
-    <header class="p-6 md:p-10 shadow-lg relative z-10" style="background-color: #A5B4A8;"> <!-- Duller Sage-Green -->
+    <header id="header-section" class="p-6 md:p-10 shadow-lg relative z-10 bg-sage-light">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-[#3A403A]">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-sage-dark">
                 <span class="inline-block transform rotate-12" style="color:#F0DADA;">✨</span> Gurnoor's CS Portfolio
             </h1>
-            <nav>
-                 <a href="#about" class="text-lg font-semibold text-[#3A403A] hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] mr-4">
-                    About
-                </a>
-                <a href="#games" class="text-lg font-semibold text-[#3A403A] hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0]">
-                    Games
-                </a>
+            <nav id="nav-links">
+                <!-- Navigation links will be injected by JS -->
             </nav>
         </div>
     </header>
 
-    <!-- About the Creator Section -->
-    <section id="about" class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
-        <div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-[#F0DADA]">
-            <h2 class="text-3xl font-bold text-[#3A403A] mb-4 flex items-center">
-                <span class="text-4xl mr-3">👋</span> About the Creator: Gurnoor
-            </h2>
-            <p class="text-[#3A403A] mb-4">
-                Welcome! I'm Gurnoor, a Computer Science novice with a passion for **creating engaging and technically sound software**. This portfolio showcases my journey into game development, so come and take a look!
-            <p class="text-[#3A403A]">
-            
-            </p>
-        </div>
-    </section>
-
-    <!-- Main Content: Game Grid -->
-    <main class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
-        <h2 id="games" class="text-4xl font-bold text-center mb-12 text-[#3A403A] border-b-4 border-[#A5B4A8] pb-2">
-            My Creative Creations 💕
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Game Card 1: Nebula Navigator -->
-            <div class="game-card bg-light-pink p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                <div class="text-6xl text-center mb-4">🚀</div>
-                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Nebula Navigator</h3>
-                <p class="text-[#3A403A] mb-4 text-sm">
-                    A star-hopping puzzle game developed using Python and Pygame. Features custom pathfinding algorithms.
-                </p>
-                <div class="flex justify-between items-center text-xs text-gray-600">
-                    <span><span class="font-semibold">Tech:</span> Python, Pygame</span>
-                    <span><span class="font-semibold">Year:</span> 2024</span>
-                </div>
-                <!-- UNIQUE LINK 1 -->
-                <a href="nebula_navigator_detail.html?game=Avatar+Bop+It" 
-                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
-                    See Game
-                </a>
-            </div>
-
-            <!-- Game Card 2: Pixel Pet Adventures -->
-            <div class="game-card bg-[#C2C9C2] p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                <div class="text-6xl text-center mb-4">💖</div>
-                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Pixel Pet Adventures</h3>
-                <p class="text-[#3A403A] mb-4 text-sm">
-                    A virtual pet simulator with persistent state using local storage (for the demo). Focused on object-oriented design.
-                </p>
-                <div class="flex justify-between items-center text-xs text-gray-600">
-                    <span><span class="font-semibold">Tech:</span> JavaScript, HTML5</span>
-                    <span><span class="font-semibold">Year:</span> 2023</span>
-                </div>
-                <!-- UNIQUE LINK 2 -->
-                <a href="pixel_pet_adventures_detail.html?game=Pixel+Pet+Adventures" 
-                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
-                    See Game
-                </a>
-            </div>
-
-            <!-- Game Card 3: Quantum Chess -->
-            <div class="game-card bg-light-pink p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                <div class="text-6xl text-center mb-4">👑</div>
-                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">Quantum Chess</h3>
-                <p class="text-[#3A403A] mb-4 text-sm">
-                    A conceptual board game exploring state superposition. Implemented complex decision tree logic (Minimax).
-                </p>
-                <div class="flex justify-between items-center text-xs text-gray-600">
-                    <span><span class="font-semibold">Tech:</span> C++, SFML</span>
-                    <span><span class="font-semibold">Year:</span> 2022</span>
-                </div>
-                <!-- UNIQUE LINK 3 -->
-                <a href="quantum_chess_detail.html?game=Quantum+Chess" 
-                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
-                    See Game
-                </a>
-            </div>
-
-            <!-- Game Card 4: Dungeon Crawler -->
-            <div class="game-card bg-[#C2C9C2] p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                <div class="text-6xl text-center mb-4">🏰</div>
-                <h3 class="text-2xl font-bold text-[#3A403A] mb-2">The Rogue Labyrinth</h3>
-                <p class="text-[#3A403A] mb-4 text-sm">
-                    A procedurally generated 2D dungeon crawler. Focused on efficient map generation algorithms.
-                </p>
-                <div class="flex justify-between items-center text-xs text-gray-600">
-                    <span><span class="font-semibold">Tech:</span> C#, Unity</span>
-                    <span><span class="font-semibold">Year:</span> 2024</span>
-                </div>
-                <!-- UNIQUE LINK 4 -->
-                <a href="rogue_labyrinth_detail.html?game=The+Rogue+Labyrinth" 
-                    class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
-                    See Game
-                </a>
-            </div>
-            
-        </div>
-    </main>
+    <!-- Main Dynamic Content Area -->
+    <div id="content-area" class="min-h-[60vh]">
+        <!-- Content (Index or Detail page) will be rendered here by JS -->
+    </div>
 
     <!-- Footer -->
-    <footer class="p-6 mt-12 text-center text-sm text-[#3A403A] relative z-10" style="background-color: #A5B4A8;"> <!-- Duller Sage-Green -->
+    <footer class="p-6 mt-12 text-center text-sm text-sage-dark relative z-10 bg-sage-light">
         <p>&copy; 2024 Gurnoor's Code Creations. All rights reserved. | Built with <span style="color:#F0DADA;">✨</span> and Tailwind CSS.</p>
     </footer>
+
+    <!-- JavaScript for Single-Page Navigation and Rendering -->
+    <script>
+        // --- DATA STRUCTURE (UPDATED GAMES) ---
+        const gameData = [
+            {
+                slug: "avatar-bopit",
+                title: "Avatar-BopIt",
+                emoji: "🚀",
+                shortDesc: "A rhythmic reaction game built around Python and Pygame. A fun test of reflexes and timing.",
+                techStack: "Python, Pygame",
+                year: 2024,
+                accentColor: "bg-light-pink",
+                detailDesc: "Avatar-BopIt is a high-speed reaction game that requires the user to quickly press the Character zooming around the screen. The core of this project was developing an efficient **event loop and a reliable timing mechanism** to ensure the game logic stayed synchronized with the frame rate, even under heavy load.",
+                technicalHighlight: "Precise Timing and Event Handling",
+                highlightText: "I implemented a custom event queue to manage simultaneous user inputs, ensuring that key presses were registered precisely within the required time window. This required careful management of the game's clock functions, such as `pygame.time.Clock.tick()`, to maintain a consistent challenge.",
+                media: {
+                    screenshot: 'placeholder-avatar-bopit-screenshot.jpg', // Replace with your image file path or URL
+                    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ' // Replace with your YouTube embed URL
+                }
+            },
+            {
+                slug: "click-odemeter",
+                title: "Click Odemeter",
+                emoji: "📈",
+                shortDesc: "A simple but addictive click counter demonstrating client-side state persistence and DOM manipulation.",
+                techStack: "JavaScript, HTML5, CSS",
+                year: 2023,
+                accentColor: "bg-[#C2C9C2]",
+                detailDesc: "Click Odemeter is a demonstration of pure **client-side web application development**. It tracks the user's total clicks, with the main challenge being the robust implementation of **local storage** to persist the click count across browser sessions and refreshes, mimicking a real-world odometer.",
+                technicalHighlight: "State Persistence & DOM Manipulation",
+                highlightText: "The core functionality relies on a single JavaScript event listener attached to the click area. On every click, the counter variable is updated, the **DOM (Document Object Model)** is immediately rendered to display the new value, and the new value is stored in `localStorage` for continuity.",
+                media: {
+                    screenshot: 'placeholder-click-odemeter-screenshot.png', // Replace with your image file path or URL
+                    videoUrl: '' // Empty if no video
+                }
+            },
+            {
+                slug: "tictactoe",
+                title: "TicTacToe",
+                emoji: "❌",
+                shortDesc: "The classic game with an Unbeatable AI opponent. Implemented using the Minimax algorithm.",
+                techStack: "C++, SFML / JavaScript",
+                year: 2022,
+                accentColor: "bg-light-pink",
+                detailDesc: "This project is a classic Tic-Tac-Toe game where the player competes against another player. Developed to master the concepts of **recursion and decision trees**, the AI utilizes the **Minimax algorithm** to determine the optimal move for every possible board state, ensuring the game always ends in a win or a draw for the computer.",
+                technicalHighlight: "Minimax Algorithm",
+                highlightText: "The Minimax function recursively evaluates all possible future game states, assigning a score (+10 for a win, -10 for a loss, 0 for a draw). The AI then chooses the move that maximizes its score (Minimax) or minimizes the opponent's score (Maximin), making it impossible for the user to win.",
+                media: {
+                    screenshot: 'placeholder-tictactoe-screenshot.jpg', // Replace with your image file path or URL
+                    videoUrl: '' // Empty if no video
+                }
+            },
+            {
+                slug: "extra-project",
+                title: "EXTRA",
+                emoji: "💡",
+                shortDesc: "A placeholder for a future or an additional project. Focused on learning new framework concepts.",
+                techStack: "TBD, Learning Vue.js",
+                year: 2024,
+                accentColor: "bg-[#C2C9C2]",
+                detailDesc: "The 'EXTRA' project is a dedicated space for my next major undertaking, which is currently focused on learning and applying a modern front-end framework, such as **Vue.js or React**. This project will challenge me to transition from vanilla JavaScript to component-based architecture and state management.",
+                technicalHighlight: "Component-Based Architecture",
+                highlightText: "The focus will be on breaking down the user interface into reusable components. This will demonstrate an understanding of reactive programming, efficient state flow, and modern web application structure, which is a key skill for professional development.",
+                media: {
+                    screenshot: '', // Empty for now
+                    videoUrl: '' // Empty for now
+                }
+            }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        const state = {
+            currentPage: 'index',
+            currentGameSlug: null
+        };
+
+        const contentArea = document.getElementById('content-area');
+        const navLinks = document.getElementById('nav-links');
+
+        /**
+         * Core navigation function. Updates state and re-renders content.
+         * @param {string} page - 'index' or 'detail'
+         * @param {string | null} slug - The slug of the game to show details for.
+         */
+        function navigate(page, slug = null) {
+            state.currentPage = page;
+            state.currentGameSlug = slug;
+            render();
+            window.scrollTo(0, 0); // Scroll to top on navigation
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        /**
+         * Renders the navigation links based on the current page.
+         */
+        function renderNav() {
+            let navHtml = '';
+            if (state.currentPage === 'index') {
+                navHtml = `
+                    <a href="javascript:void(0);" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] mr-4">
+                        About
+                    </a>
+                    <a href="javascript:void(0);" onclick="document.getElementById('games').scrollIntoView({behavior: 'smooth'})" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0]">
+                        Games
+                    </a>
+                `;
+            } else {
+                navHtml = `
+                    <a href="javascript:navigate('index')" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] shadow-md hover:shadow-lg">
+                        <span class="inline-block mr-2">🏠</span> Back to Portfolio
+                    </a>
+                `;
+            }
+            navLinks.innerHTML = navHtml;
+        }
+
+
+        /**
+         * Renders the main portfolio index page (About + Game Grid).
+         */
+        function renderIndex() {
+            const aboutSection = `
+                <section id="about" class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-[#F0DADA]">
+                        <h2 class="text-3xl font-bold text-sage-dark mb-4 flex items-center">
+                            <span class="text-4xl mr-3">👋</span> About the Creator: Gurnoor
+                        </h2>
+                        <p class="text-sage-dark mb-4">
+                            Welcome! I'm Gurnoor, a Computer Science novice with a passion for **creating engaging and technically sound software**. This portfolio showcases my journey into game development, focusing on implementing robust algorithms and clean object-oriented design.
+                        </p>
+                        <p class="text-sage-dark">
+                           
+                    </div>
+                </section>
+            `;
+
+            const gameCardsHtml = gameData.map(game => `
+                <!-- Game Card: ${game.title} -->
+                <div class="game-card ${game.accentColor} p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-6xl text-center mb-4">${game.emoji}</div>
+                    <h3 class="text-2xl font-bold text-sage-dark mb-2">${game.title}</h3>
+                    <p class="text-sage-dark mb-4 text-sm">${game.shortDesc}</p>
+                    <div class="flex justify-between items-center text-xs text-gray-600">
+                        <span><span class="font-semibold">Tech:</span> ${game.techStack}</span>
+                        <span><span class="font-semibold">Year:</span> ${game.year}</span>
+                    </div>
+                    <!-- Navigation link calls the JS navigate function -->
+                    <button onclick="navigate('detail', '${game.slug}')" 
+                        class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                        See Game
+                    </button>
+                </div>
+            `).join('');
+
+            const gameGrid = `
+                <main class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+                    <h2 id="games" class="text-4xl font-bold text-center mb-12 text-sage-dark border-b-4 border-sage-light pb-2">
+                        My Creative Creations 👾
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${gameCardsHtml}
+                    </div>
+                </main>
+            `;
+
+            contentArea.innerHTML = aboutSection + gameGrid;
+        }
+
+        /**
+         * Renders the detail page for a specific game.
+         * @param {string} slug - The slug of the game to display.
+         */
+        function renderDetail(slug) {
+            const game = gameData.find(g => g.slug === slug);
+
+            if (!game) {
+                contentArea.innerHTML = `<div class="max-w-4xl mx-auto p-10 text-center text-red-600">Game not found!</div>`;
+                return;
+            }
+            
+            // Dynamic Media Content Check
+            // Screenshot/Image HTML: Use an <img> tag if a file path is provided, otherwise use a placeholder.
+            const screenshotHtml = game.media.screenshot 
+                ? `<img src="${game.media.screenshot}" alt="Screenshot of ${game.title}" class="w-full h-full object-cover rounded-lg shadow-md">`
+                : `<div class="bg-gray-200 p-4 rounded-xl text-center h-48 flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <p class="text-gray-600">Placeholder for Screenshot / GIF</p>
+                </div>`;
+
+            // Video HTML: Use an iframe for YouTube embed if a URL is provided, otherwise use a placeholder.
+            const videoHtml = game.media.videoUrl
+                ? `<div class="relative h-0" style="padding-bottom: 56.25%;">
+                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md" 
+                        src="${game.media.videoUrl}?autoplay=0&controls=1" 
+                        title="${game.title} Gameplay Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                </div>`
+                : `<div class="bg-gray-200 p-4 rounded-xl text-center h-48 flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <p class="text-gray-600">Placeholder for Gameplay Video Embed</p>
+                </div>`;
+
+            const detailHtml = `
+                <main class="max-w-4xl mx-auto p-6 md:p-10 relative z-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-8 border-[#F0DADA] mb-8" 
+                        style="border-color: ${game.accentColor === 'bg-light-pink' ? '#F0DADA' : '#A5B4A8'};">
+                        <div class="flex items-center justify-between mb-6 border-b pb-4">
+                            <h2 class="text-4xl font-extrabold text-sage-dark flex items-center">
+                                <span class="text-5xl mr-3">${game.emoji}</span> ${game.title}
+                            </h2>
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">Tech Stack: <span class="font-bold text-[#82998A]">${game.techStack}</span></p>
+                                <p class="text-sm text-gray-500">Year: ${game.year}</p>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <h3 class="text-2xl font-bold text-sage-dark mt-6 mb-3">Project Overview</h3>
+                        <p class="text-gray-700 leading-relaxed mb-6">${game.detailDesc}</p>
+
+                        <!-- Technical Highlight -->
+                        <div class="${game.accentColor} p-5 rounded-xl shadow-inner mb-6">
+                            <h4 class="text-xl font-semibold text-sage-dark mb-2">Technical Highlight: ${game.technicalHighlight}</h4>
+                            <p class="text-gray-700 text-sm">${game.highlightText}</p>
+                        </div>
+
+                        <!-- Media Section (Updated with dynamic placeholders) -->
+                        <h3 class="text-2xl font-bold text-sage-dark mt-8 mb-4">Media Showcase</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Image / Screenshot Slot -->
+                            <div class="rounded-xl overflow-hidden shadow-lg h-48">
+                                ${screenshotHtml}
+                            </div>
+                            <!-- Video Embed Slot -->
+                            <div class="rounded-xl overflow-hidden shadow-lg h-48">
+                                ${videoHtml}
+                            </div>
+                        </div>
+                        
+                        <!-- External Link -->
+                        <div class="mt-8">
+                            <a href="#" target="_blank" 
+                                class="w-full block text-center py-3 bg-[#82998A] text-gray-100 font-bold text-xl rounded-lg shadow-xl hover:bg-[#6c8273] transition transform hover:scale-[1.01]">
+                                View Project Repository (Link Placeholder)
+                            </a>
+                        </div>
+                    </div>
+                </main>
+            `;
+            contentArea.innerHTML = detailHtml;
+        }
+
+        /**
+         * Main render loop that checks the state and renders the appropriate page.
+         */
+        function render() {
+            renderNav();
+            if (state.currentPage === 'index') {
+                renderIndex();
+            } else if (state.currentPage === 'detail' && state.currentGameSlug) {
+                renderDetail(state.currentGameSlug);
+            } else {
+                renderIndex(); // Default to index if state is bad
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            render();
+        };
+    </script>
 </body>
 </html>
