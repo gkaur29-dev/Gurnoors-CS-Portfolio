@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Cipher Studio</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #bc13fe;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+        }
+
+        .container {
+            border: 2px solid #bc13fe;
+            padding: 30px;
+            box-shadow: 0 0 20px #bc13fe;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px #bc13fe;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        textarea {
+            width: 100%;
+            background: #0a0a0a;
+            border: 1px solid #bc13fe;
+            color: #d896ff;
+            padding: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px #bc13fe;
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 24px;
+            margin: 10px 0;
+            color: #bc13fe;
+        }
+
+        ::placeholder {
+            color: #4b0082;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>BINARY CIPHER</h1>
+
+        <div class="section">
+            <label>PLAINTEXT MESSAGE</label>
+            <textarea id="textInput" rows="3" placeholder="Enter message to encrypt..." oninput="encode()"></textarea>
+            <div class="arrow">↓</div>
+            <label>BINARY ENCODING (8-BIT)</label>
+            <textarea id="binaryOutput" rows="4" readonly></textarea>
+        </div>
+
+        <hr style="border: 0.5px solid #4b0082; margin: 20px 0;">
+
+        <div class="section">
+            <label>BINARY INPUT (01101000...)</label>
+            <textarea id="binaryInput" rows="4" placeholder="Paste binary code here..." oninput="decode()"></textarea>
+            <div class="arrow">↓</div>
+            <label>DECIPHERED TEXT</label>
+            <textarea id="textOutput" rows="3" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        // Convert Text to Binary
+        function encode() {
+            const input = document.getElementById('textInput').value;
+            const outputField = document.getElementById('binaryOutput');
+            
+            const encoded = input.split('').map(char => {
+                // Get decimal, convert to base 2, and pad to 8 bits
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            }).join(' ');
+            
+            outputField.value = encoded;
+        }
+
+        // Convert Binary to Text
+        function decode() {
+            const input = document.getElementById('binaryInput').value;
+            const outputField = document.getElementById('textOutput');
+            
+            try {
+                // Remove any non-binary characters except spaces
+                const cleanInput = input.replace(/[^01\s]/g, '');
+                const binaries = cleanInput.trim().split(/\s+/);
+                
+                const decoded = binaries.map(bin => {
+                    if(bin === "") return "";
+                    // Parse the binary string as base 2 integer
+                    return String.fromCharCode(parseInt(bin, 2));
+                }).join('');
+                
+                outputField.value = decoded;
+            } catch (e) {
+                outputField.value = "[Error in binary sequence]";
+            }
+        }
+    </script>
+</body>
+</html>
