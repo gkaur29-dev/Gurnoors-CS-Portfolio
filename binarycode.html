@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Pulse Odometer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff007f;
+            --bg: #000000;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--pink);
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            transition: background 0.1s;
+        }
+
+        /* Screen Shake Effect */
+        .shake {
+            animation: shake 0.05s ease-in-out;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            50% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* Scanline imagery effect */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255, 0, 127, 0) 0%, rgba(255, 0, 127, 0.05) 50%, rgba(255, 0, 127, 0) 100%);
+            background-size: 100% 200%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .scanning::after {
+            animation: scan 0.2s linear infinite;
+        }
+
+        @keyframes scan {
+            from { background-position: 0 -100%; }
+            to { background-position: 0 100%; }
+        }
+
+        .odometer-container {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 15px;
+            margin-bottom: 50px;
+            z-index: 5;
+        }
+
+        .digit-slot {
+            width: 70px;
+            height: 100px;
+            background: transparent;
+            border: 2px solid var(--pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: transform 0.05s;
+        }
+
+        .digit-slot.active {
+            box-shadow: 0 0 30px var(--pink);
+            background: var(--pink);
+            color: #000;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .btn-group { display: flex; gap: 15px; }
+
+        button {
+            background: transparent;
+            border: 2px solid var(--pink);
+            color: var(--pink);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        button:hover { background: var(--pink); color: #000; }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--pink);
+            color: var(--pink);
+            width: 50px;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            outline: none;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.7rem;
+        }
+
+        input[type="range"] {
+            accent-color: var(--pink);
+            width: 150px;
+        }
+    </style>
+</head>
+<body id="mainBody">
+
+    <div class="odometer-container" id="odometer"></div>
+
+    <div class="controls">
+        <div class="btn-group">
+            <div>BASE <input type="number" id="baseInput" value="2" min="2" max="36"></div>
+            <button id="autoBtn">Start</button>
+            <button id="resetBtn">Reset</button>
+        </div>
+        
+        <div class="slider-container">
+            SPEED <input type="range" id="speedSlider" min="50" max="1000" value="200" step="50">
+        </div>
+        
+        <div id="decVal" style="font-size: 0.8rem; opacity: 0.5;">DEC: 0</div>
+    </div>
+
+    <script>
+        const odometer = document.getElementById('odometer');
+        const baseInput = document.getElementById('baseInput');
+        const autoBtn = document.getElementById('autoBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const speedSlider = document.getElementById('speedSlider');
+        const mainBody = document.getElementById('mainBody');
+
+        let base = 2;
+        let slotCount = 8;
+        let values = new Array(slotCount).fill(0);
+        let intervalId = null;
+        const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playTick() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function createOdometer() {
+            odometer.innerHTML = '';
+            for (let i = 0; i < slotCount; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'digit-slot';
+                slot.id = `slot-${i}`;
+                slot.textContent = values[i];
+                slot.onclick = () => { audioCtx.resume(); increment(i); };
+                odometer.appendChild(slot);
+            }
+        }
+
+        function increment(index) {
+            values[index]++;
+            playTick();
+            
+            // Imagery Trigger
+            mainBody.classList.add('shake', 'scanning');
+            setTimeout(() => {
+                mainBody.classList.remove('shake');
+                if(!intervalId) mainBody.classList.remove('scanning');
+            }, 100);
+
+            const el = document.getElementById(`slot-${index}`);
+            el.classList.add('active');
+            setTimeout(() => el.classList.remove('active'), 100);
+
+            if (values[index] >= base) {
+                values[index] = 0;
+                if (index < slotCount - 1) increment(index + 1);
+            }
+            refresh();
+        }
+
+        function refresh() {
+            let total = 0;
+            for (let i = 0; i < slotCount; i++) {
+                document.getElementById(`slot-${i}`).textContent = chars[values[i]];
+                total += values[i] * Math.pow(base, i);
+            }
+            document.getElementById('decVal').textContent = `DEC: ${total}`;
+        }
+
+        autoBtn.onclick = () => {
+            audioCtx.resume();
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = null;
+                autoBtn.textContent = "Start";
+                mainBody.classList.remove('scanning');
+            } else {
+                const startAuto = () => {
+                    intervalId = setInterval(() => increment(0), speedSlider.value);
+                };
+                startAuto();
+                autoBtn.textContent = "Stop";
+                mainBody.classList.add('scanning');
+            }
+        };
+
+        // Speed update during auto-run
+        speedSlider.oninput = () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+                intervalId = setInterval(() => increment(0), speedSlider.value);
+            }
+        };
+
+        baseInput.onchange = (e) => { base = parseInt(e.target.value) || 2; reset(); };
+        resetBtn.onclick = () => { values.fill(0); refresh(); };
+
+        createOdometer();
+        refresh();
+    </script>
+</body>
+</html>
