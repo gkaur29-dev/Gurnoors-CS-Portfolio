@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧁 Sweet Noughts & Crosses 🍰</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Jost font, set up custom colors -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
+        
+        :root {
+            /* Define a soft, muted rose palette */
+            --pink-lightest: #fcfbf8; /* Very soft off-white/blush background */
+            --pink-lighter: #fbebeb; /* Soft light rose cell background */
+            --pink-medium: #d9a6ad; /* Muted rose for shadows/borders */
+            --pink-dark: #a36774; /* Dusty rose for text/primary accents */
+            --purple-accent: #8c6e83; /* Muted plum button color */
+            --highlight-win: #c0b0b8; /* Soft grey-mauve for win cells */
+        }
+
+        body {
+            font-family: 'Jost', sans-serif; /* A modern, rounded font */
+            background-color: var(--pink-lightest);
+            color: var(--pink-dark);
+            height: 100vh;
+        }
+        
+        /* Custom button styling for the game board cells */
+        .cell {
+            background-color: var(--pink-lighter);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px var(--pink-medium);
+        }
+
+        .cell:hover:not(.occupied) {
+            background-color: #f7f3f3; /* Even lighter background on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px var(--pink-medium);
+        }
+        
+        /* Style for the main restart button */
+        .restart-button {
+            background-color: var(--purple-accent);
+            box-shadow: 0 4px #785a73; /* Darker muted plum for shadow */
+            transition: all 0.2s ease-in-out;
+        }
+        .restart-button:hover {
+            background-color: #7b5f74;
+            transform: translateY(-1px);
+            box-shadow: 0 5px #785a73;
+        }
+
+        /* Utility class for status message background in JS */
+        .status-default-bg {
+             background-color: var(--pink-lightest);
+        }
+
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div id="game-container" class="w-full max-w-md bg-white p-6 rounded-3xl shadow-2xl border-4 border-[--pink-medium] transform scale-95 md:scale-100">
+        
+        <!-- Game Title and Status -->
+        <h1 class="text-4xl font-bold text-center mb-6" style="color: var(--pink-dark);">
+            Sweet Treat Tic-Tac-Toe! 🍬
+        </h1>
+        
+        <!-- Status message uses muted colors for feedback -->
+        <div id="status-message" class="text-center text-xl font-semibold mb-6 p-3 rounded-xl border-2 border-[--pink-medium] shadow-inner status-default-bg" style="color: var(--pink-dark);">
+            It's 🍰's turn to play!
+        </div>
+
+        <!-- The Game Board (Grid) -->
+        <div id="game-board" class="grid grid-cols-3 gap-3 p-3 rounded-2xl shadow-lg" style="background-color: var(--pink-lighter);">
+            <!-- Cells will be dynamically generated and updated by JavaScript -->
+            <!-- Placeholder for 9 cells -->
+            <div data-cell-index="0" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="1" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="2" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="3" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="4" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="5" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="6" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="7" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+            <div data-cell-index="8" class="cell h-24 flex items-center justify-center text-6xl rounded-xl"></div>
+        </div>
+
+        <!-- Restart Button -->
+        <div class="mt-8 text-center">
+            <button id="restart-button" class="restart-button text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg">
+                Restart Game! 🥂
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Game Setup ---
+        const board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let isGameActive = true;
+
+        // Custom Emojis for the game: Changed from 💖 and 🎀 to Cake and Donut!
+        const emojiMap = {
+            'X': '🍰', // Player 1 (Cake Slice)
+            'O': '🍩'  // Player 2 (Donut)
+        };
+
+        const winConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+
+        const gameBoard = document.getElementById('game-board');
+        const statusMessage = document.getElementById('status-message');
+        const restartButton = document.getElementById('restart-button');
+        const cells = Array.from(gameBoard.children);
+
+
+        // --- Functions ---
+
+        /**
+         * Updates the text in the status bar based on the game state.
+         */
+        function updateStatus() {
+            if (!isGameActive) {
+                // If game is over, the status is already set by checkWin or checkDraw
+                return;
+            }
+            statusMessage.innerHTML = `It's ${emojiMap[currentPlayer]}'s turn to play!`;
+            // Reset to default muted status colors
+            statusMessage.classList.remove('bg-yellow-50', 'text-gray-700', 'bg-red-50', 'text-red-700', 'font-extrabold');
+            statusMessage.classList.add('status-default-bg');
+            statusMessage.style.color = 'var(--pink-dark)';
+        }
+
+        /**
+         * Checks if the current player has won the game.
+         * If so, ends the game and updates the status.
+         */
+        function checkWin() {
+            let roundWon = false;
+            for (let i = 0; i < winConditions.length; i++) {
+                const winCondition = winConditions[i];
+                let a = board[winCondition[0]];
+                let b = board[winCondition[1]];
+                let c = board[winCondition[2]];
+                
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+                if (a === b && b === c) {
+                    roundWon = true;
+                    // Highlight winning cells with soft grey-mauve accent
+                    winCondition.forEach(index => {
+                        cells[index].style.backgroundColor = 'var(--highlight-win)';
+                        cells[index].classList.add('shadow-2xl');
+                    });
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                const winningEmoji = emojiMap[currentPlayer];
+                statusMessage.innerHTML = `🎉 ${winningEmoji} won the game! So sweet! 🎉`;
+                
+                // Muted win color: pale yellow background, dark grey text
+                statusMessage.classList.remove('status-default-bg');
+                statusMessage.classList.add('bg-yellow-50', 'text-gray-700', 'font-extrabold');
+                statusMessage.style.color = 'var(--pink-dark)'; // Keep the dusty pink text color
+                
+                isGameActive = false;
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Checks if the game is a draw (all cells filled, no winner).
+         * If so, ends the game and updates the status.
+         */
+        function checkDraw() {
+            if (!board.includes('')) {
+                statusMessage.innerHTML = "💔 It's a draw! Still besties though. 🤝";
+                
+                // Muted draw color: pale red background, dark red text
+                statusMessage.classList.remove('status-default-bg');
+                statusMessage.classList.add('bg-red-50', 'text-red-700', 'font-extrabold');
+                statusMessage.style.color = 'var(--pink-dark)'; // Keep the dusty pink text color
+
+                isGameActive = false;
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Renders the current state of the board onto the HTML grid.
+         */
+        function renderBoard() {
+            board.forEach((value, index) => {
+                const cellElement = cells[index];
+                cellElement.innerHTML = emojiMap[value] || '';
+                
+                // Add or remove the 'occupied' class to manage hover effects after a cell is played
+                if (value !== '') {
+                    cellElement.classList.add('occupied', 'pointer-events-none');
+                } else {
+                    cellElement.classList.remove('occupied', 'pointer-events-none', 'shadow-2xl');
+                    cellElement.style.backgroundColor = 'var(--pink-lighter)'; // Reset to default light background
+                }
+            });
+        }
+        
+        /**
+         * Handles a click on a game cell.
+         * @param {number} index - The index of the clicked cell (0-8).
+         */
+        function handleCellClick(index) {
+            if (!isGameActive || board[index] !== '') {
+                return; // Ignore clicks if game is inactive or cell is taken
+            }
+
+            // 1. Update internal state
+            board[index] = currentPlayer;
+
+            // 2. Render change visually
+            renderBoard();
+
+            // 3. Check for game end conditions
+            if (checkWin() || checkDraw()) {
+                // Game over, status updated inside checks
+                return;
+            }
+
+            // 4. Switch player
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+
+            // 5. Update status display
+            updateStatus();
+        }
+
+        /**
+         * Resets the game to its initial state.
+         */
+        function restartGame() {
+            board.fill('');
+            currentPlayer = 'X';
+            isGameActive = true;
+            
+            // Reset cell styling
+            cells.forEach(cell => {
+                cell.classList.remove('occupied', 'pointer-events-none', 'shadow-2xl');
+                cell.style.backgroundColor = 'var(--pink-lighter)';
+            });
+
+            // Reset status styling
+            statusMessage.classList.remove('bg-yellow-50', 'text-gray-700', 'bg-red-50', 'text-red-700', 'font-extrabold');
+            statusMessage.classList.add('status-default-bg');
+
+            renderBoard();
+            updateStatus();
+        }
+
+        // --- Event Listeners and Initialization ---
+
+        /**
+         * Initializes the game by setting up event listeners.
+         */
+        function initializeGame() {
+            // Attach event listener to each cell
+            cells.forEach((cell, index) => {
+                cell.addEventListener('click', () => handleCellClick(index));
+            });
+
+            // Attach event listener to the restart button
+            restartButton.addEventListener('click', restartGame);
+
+            // Set initial status and board
+            renderBoard();
+            updateStatus();
+        }
+
+        // Start the game when the window loads
+        window.onload = initializeGame;
+
+    </script>
+</body>
+</html>
