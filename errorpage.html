@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gurnoor's CS Portfolio - Single Page</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Design Code: General Styles and Font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Faint Sage/Pewter Background */
+            background-color: #E6EBE0; 
+            position: relative; 
+            overflow-x: hidden;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+            50% { transform: translateY(-20px) rotate(5deg); opacity: 1; }
+            100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+        }
+
+        .moving-emoji {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 0; 
+            animation: float 5s ease-in-out infinite alternate;
+            pointer-events: none; /* Make them ignore mouse clicks */
+        }
+
+        /* Floating Emoji Positions */
+        .emoji-1 { top: 10%; left: 5%; animation-delay: 0.5s; }
+        .emoji-2 { top: 35%; right: 10%; animation-duration: 6s; }
+        .emoji-3 { bottom: 20%; left: 15%; animation-delay: 1.5s; }
+        .emoji-4 { top: 60%; left: 70%; animation-duration: 4.5s; }
+        .emoji-5 { bottom: 5%; right: 5%; animation-delay: 2s; }
+        
+        /* Custom colors */
+        .bg-sage-light { background-color: #A5B4A8; }
+        .bg-light-pink { background-color: #F0DADA; }
+        .text-sage-dark { color: #3A403A; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- --- Floating Emojis --- -->
+    <span class="moving-emoji emoji-1" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-3" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-5" style="color:#F0DADA;">✨</span>
+    <span class="moving-emoji emoji-2" style="color:#A5B4A8;">🌿</span>
+    <span class="moving-emoji emoji-4" style="color:#A5B4A8;">🌿</span>
+    <!-- --- END Floating Emojis --- -->
+
+    <!-- Header Section -->
+    <header id="header-section" class="p-6 md:p-10 shadow-lg relative z-10 bg-sage-light">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-sage-dark">
+                <span class="inline-block transform rotate-12" style="color:#F0DADA;">✨</span> Gurnoor's CS Portfolio
+            </h1>
+            <nav id="nav-links">
+                <!-- Navigation links will be injected by JS -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Area -->
+    <div id="content-area" class="min-h-[60vh]">
+        <!-- Content (Index or Detail page) will be rendered here by JS -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="p-6 mt-12 text-center text-sm text-sage-dark relative z-10 bg-sage-light">
+        <p>&copy; 2024 Gurnoor's Code Creations. All rights reserved. | Built with <span style="color:#F0DADA;">✨</span> and Tailwind CSS.</p>
+    </footer>
+
+    <!-- JavaScript for Single-Page Navigation and Rendering -->
+    <script>
+        // --- DATA STRUCTURE (UPDATED GAMES) ---
+        const gameData = [
+            {
+                slug: "Tic-Tac-Toe ",
+                title: "Tic-Tac-Toe",
+                emoji: "❌",
+                shortDesc: "The classic childhood game, play with a friend!!. Made using App Inventor and excitement!.",
+                techStack: "App Inventor",
+                year: 2025,
+                accentColor: "bg-light-pink",
+                detailDesc: "Tic-Tac-Toe is a fun interactive two player game that provides a grid with nine slots. In this grid, taking turns, each player must position either their X, or O, on to the grid and get 3 in a row to win the game!",
+                technicalHighlight: "Description",
+                highlightText: "I used App Inventor to contruct the code of this game. I did this through placing blocks together and using logic to make sure the game ran without mistakes and was overall succesfull. I was also able to incorporate my interests within the theme by using colors I like and other documents when styling the app. Creating and testing the app had allowed me to realize how logic and rules play a huge part in computer science!.",
+                    // screenshot: 'placeholder-avatar-bopit-screenshot.jpg' // Replace with your image file path or URL
+                media: {
+                    screenshot: 'Untitled design.png', // Replace with your image file path or URL
+                    videoUrl: '' // Empty if no video
+                }
+            },
+            {
+                slug: "click-odemeter",
+                title: "Click Odemeter",
+                emoji: "📈",
+                shortDesc: "A simple but addictive click counter giving you the freedom to expirement with numbers..",
+                techStack: "App Inventor",
+                year: 2025,
+                accentColor: "bg-[#C2C9C2]",
+                detailDesc: "Click Odemeter is a creation mimicking a real-world odometer where people are allowed to control numbers however they want, whether its reaching insane numbers, or just identifying patterns. The click Odemeter tracks the amount of clicks you have depending on the number place you click, tracking numbers and amounts.",
+                technicalHighlight: "Description",
+                highlightText: "Working on this project revealed the part that math plays in computer science, even just simple math. I was able to learn how control many buttons at once and have them depend on eachother and the user of the Odemeter.",
+                media: {
+                    screenshot: 'ClickOdometercode.png', // Replace with your image file path or URL
+                    videoUrl: '' // Empty if no video
+                }
+            },
+            {
+                slug: "AvatarBopIt",
+                title: "Avatar Bop-It",
+                emoji: "🚀",
+                shortDesc: "Test your reaction time on multiple different levels chasing sprites around the screen!",
+                techStack: "App Inventor",
+                year: 2025,
+                accentColor: "bg-light-pink",
+                detailDesc: "Avatar-BopIt is a high-speed reaction game that requires the user to quickly press the Character zooming around the screen. Player are allowed to change difficulty levels and explore the element of the show it is based upon.",
+                technicalHighlight: "Description",
+                highlightText: "in the process of making Avatar-BopIt, I was able to learn how to use multiple screens and how to link them together. In this project, styling was also a very emphasized component, that was personally my favorite step in the process.",
+                media: {
+                    screenshot: 'BopItCode.png', // Replace with your image file path or URL
+                    videoUrl: '' // Empty if no video
+                }
+            },
+            {
+                slug: "binarycode.html",
+                title: "Binary Numbers",
+                emoji: "💡",
+                shortDesc: "A page that will explain the main ideas of Binary code, including how to understand it, how it works in our everyday lives, and some other fun facts.",
+                techStack: "",
+                year: 2025,
+                accentColor: "bg-[#C2C9C2]",
+                detailDesc: "Binary numbers are the simplest form of data used by computers, relying on a base-2 system that uses only two digits: 0 and 1. While humans typically count in base-10, computers use binary because their hardware is made of electronic switches that can only be in two states—off (0) or on (1). By grouping these bits together, computers can represent complex information such as text, images, and software instructions. Essentially, every video you watch or email you send is processed by the computer using the binary number syststem.",
+                technicalHighlight: "Component-Based Architecture",
+                highlightText: "I used to think of computers as magic boxes, but learning binary was like finding out a top hidden secret. It was fascinating to realize that at the most basic level, every photo, video, and text message is just a massive string of 1s and 0s.",
+                media: {
+                    screenshot: 'Binaryss.png', // Empty for now
+                    videoUrl: 'binarycode.html' // Empty for now
+                }
+            },
+            {
+                slug: "TIcTacToe.html",
+                title: "Extra TicTacToe",
+                emoji: "X",
+                shortDesc: "A fun page that displays the game of TicTacToe, How it works, How it was made, and link that allows you to actually play the game.",
+                techStack: "",
+                year: 2024,
+                accentColor: "bg-light-pink",
+                detailDesc: "The 'Tic-Tac-Toe is a classic game played by two players, commonly known as X and O, who take turns marking the spaces in a $3 \times 3$ grid. The objective is to be the first player to place three of their marks in a horizontal, vertical, or diagonal row..",
+                technicalHighlight: "",
+                highlightText: "This Tic-Tac-Toe game was created by Gemini, allowing me generate new ideas and learn new perks that I could add to past and future projects!",
+                media: {
+                    screenshot: 'TICTACTOE.png', // Empty for now
+                    videoUrl: '/TIcTacToe.html' // Empty for now
+                }
+            },
+            {
+                slug: "ASCII.html",
+                title: "ASCII Number system",
+                emoji: "🔢",
+                shortDesc: "ASCII is a character encoding standard that assigns a unique number between 0 and 127 to specific letters, digits, and punctuation marks, allowing computers to translate binary data into human-readable text. Come learn about it!",
+                techStack: "",
+                year: 2026,
+                accentColor: "bg-[#C2C9C2]",
+                detailDesc: "ASCII (American Standard Code for Information Interchange) is a translation system that allows computers to represent text as numbers. Since computers can only process binary (1s and 0s), ASCII assigns a specific numeric code to 128 different characters, including uppercase and lowercase letters, numbers, and punctuation marks. For example, when you press the A key, the computer sees the number 65 and then converts it into binary.",
+                technicalHighlight: "Component-Based Architecture",
+                highlightText: "Learning about the ASCII number system helped me understand that its not easy for electronics to process mesages to and back to people. The ASCII number system reveals that computers don't actually 'know' what a letter is; they are simply programmed to display a specific shape whenever they encounter a specific number.",
+                media: {
+                    screenshot: 'ASCII table.png', // Empty for now
+                    videoUrl: '/ASCII.html' // Empty for now
+                }
+            },
+            {
+                slug: "colorguess.html",
+                title: "Guess the Color",
+                emoji: ""🟪,
+                shortDesc: "This page has a color guessing game where you must choose the most accurate color shade matching the binary numbers given to you!",
+                techStack: "",
+                year: 2026,
+                accentColor: "bg-light-pink",
+                detailDesc: "This color-guessing game requires the user to observe and analyze the color code given in binary numbers (hexidecimal), ranging from values 1, to F. A set of colors (amount depedning on what you choose) are provided and use must figure out which ones color is the one being given to you in the color code. You can adjust the amount of color options you have and the difficulty!",
+                technicalHighlight: "",
+                highlightText: "Throughout the process of contructing this games, I learned and was able to understand how colors work in computers. There is usually a 6 digit code representing the color, 2 consecutive digits representing a color. It goes in the order of Red, Green, and Blue. I learned which numbers indicate that darkness or vibrance of a color and the result of these colors mizing.",
+                media: {
+                    screenshot: 'RGB color values.png', // Empty for now
+                    videoUrl: '' // Empty for now
+                }
+            },
+            {
+                slug: "ERROR PAGE",
+                title: "Digital images",
+                emoji: "🎆",
+                shortDesc: "Find out how day to day pictures on your electronics are composed of binary numbers!",
+                techStack: "",
+                year: 2026,
+                accentColor: "bg-light-pink",
+                detailDesc: "Check out this page that explains the basic units of digital images and videos... Pixels! Digital pictures are formed by a grid of pixels, where binary numbers represent specific colors or brightness levels for each point. Run-Length Encoding compresses this data by replacing long sequences of identical binary values with a single number representing the color and a second number representing the 'run' length, or how many times that color repeats.",
+                technicalHighlight: "",
+                highlightText: "Learning about binary was cool, but learning about how binary created pictures and how pixels are controlled by binary was even cooler. Each pixel is basically one color, and there's soooo many pixels that when you zoom out, the picture looks perfect without and rigid shapes in it regarding the pixels. Check out this pixel I made!! ↓",
+                media: {
+                    screenshot: 'COOKIE.png', // Empty for now
+                    videoUrl: '' // Empty for now
+                }
+            }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        const state = {
+            currentPage: 'index',
+            currentGameSlug: null
+        };
+
+        const contentArea = document.getElementById('content-area');
+        const navLinks = document.getElementById('nav-links');
+
+        /**
+         * Core navigation function. Updates state and re-renders content.
+         * @param {string} page - 'index' or 'detail'
+         * @param {string | null} slug - The slug of the game to show details for.
+         */
+        function navigate(page, slug = null) {
+            state.currentPage = page;
+            state.currentGameSlug = slug;
+            render();
+            window.scrollTo(0, 0); // Scroll to top on navigation
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        /**
+         * Renders the navigation links based on the current page.
+         */
+        function renderNav() {
+            let navHtml = '';
+            if (state.currentPage === 'index') {
+                navHtml = `
+                    <a href="javascript:void(0);" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] mr-4">
+                        About
+                    </a>
+                    <a href="javascript:void(0);" onclick="document.getElementById('games').scrollIntoView({behavior: 'smooth'})" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0]">
+                        Games
+                    </a>
+                `;
+            } else {
+                navHtml = `
+                    <a href="javascript:navigate('index')" class="text-lg font-semibold text-sage-dark hover:text-gray-900 transition duration-300 p-2 rounded-lg bg-[#E6EBE0] shadow-md hover:shadow-lg">
+                        <span class="inline-block mr-2">🏠</span> Back to Portfolio
+                    </a>
+                `;
+            }
+            navLinks.innerHTML = navHtml;
+        }
+
+
+        /**
+         * Renders the main portfolio index page (About + Game Grid).
+         */
+        function renderIndex() {
+            const aboutSection = `
+                <section id="about" class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border-t-8 border-[#F0DADA]">
+                        <h2 class="text-3xl font-bold text-sage-dark mb-4 flex items-center">
+                            <span class="text-4xl mr-3">👋</span> About the Creator: Gurnoor
+                        </h2>
+                        <p class="text-sage-dark mb-4">
+                            Welcome! I'm Gurnoor, a Computer Science novice taking an Intro to Computer Science course with much curiousity. This portfolio showcases my journey into game development, learning about different coding platforms, basic skills in coding, using resources in coding, and learning about systems like the Binary and ASCII number systems!.
+                        </p>
+                        <p class="text-sage-dark">
+                           
+                    </div>
+                </section>
+            `;
+
+            const gameCardsHtml = gameData.map(game => `
+                <!-- Game Card: ${game.title} -->
+                <div class="game-card ${game.accentColor} p-6 rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <div class="text-6xl text-center mb-4">${game.emoji}</div>
+                    <h3 class="text-2xl font-bold text-sage-dark mb-2">${game.title}</h3>
+                    <p class="text-sage-dark mb-4 text-sm">${game.shortDesc}</p>
+                    <div class="flex justify-between items-center text-xs text-gray-600">
+                        <span><span class="font-semibold">Tech:</span> ${game.techStack}</span>
+                        <span><span class="font-semibold">Year:</span> ${game.year}</span>
+                    </div>
+                    <!-- Navigation link calls the JS navigate function -->
+                    <button onclick="navigate('detail', '${game.slug}')" 
+                        class="mt-4 w-full block text-center py-2 bg-[#82998A] text-gray-100 font-semibold rounded-lg shadow-md hover:bg-[#6c8273] transition transform hover:scale-[1.02]">
+                        See Game
+                    </button>
+                </div>
+            `).join('');
+
+            const gameGrid = `
+                <main class="max-w-7xl mx-auto p-6 md:p-10 relative z-10">
+                    <h2 id="games" class="text-4xl font-bold text-center mb-12 text-sage-dark border-b-4 border-sage-light pb-2">
+                        My Creative Creations 👾
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${gameCardsHtml}
+                    </div>
+                </main>
+            `;
+
+            contentArea.innerHTML = aboutSection + gameGrid;
+        }
+
+        /**
+         * Renders the detail page for a specific game.
+         * @param {string} slug - The slug of the game to display.
+         */
+        function renderDetail(slug) {
+            const game = gameData.find(g => g.slug === slug);
+
+            if (!game) {
+                contentArea.innerHTML = `<div class="max-w-4xl mx-auto p-10 text-center text-red-600">Game not found!</div>`;
+                return;
+            }
+            
+            // Dynamic Media Content Check
+            // Screenshot/Image HTML: Use an <img> tag if a file path is provided, otherwise use a placeholder.
+            const screenshotHtml = game.media.screenshot 
+                ? `<img src="${game.media.screenshot}" alt="Screenshot of ${game.title}" class="w-full h-full object-cover rounded-lg shadow-md">`
+                : `<div class="bg-gray-200 p-4 rounded-xl text-center h-48 flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <p class="text-gray-600">Placeholder for Screenshot / GIF</p>
+                </div>`;
+
+            // Video HTML: Use an iframe for YouTube embed if a URL is provided, otherwise use a placeholder.
+            const videoHtml = game.media.videoUrl
+                ? `<div class="relative h-0" style="padding-bottom: 56.25%;">
+                    <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-md" 
+                        src="${game.media.videoUrl}?autoplay=0&controls=1" 
+                        title="${game.title} Gameplay Video" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen></iframe>
+                </div>`
+                : `<div class="bg-gray-200 p-4 rounded-xl text-center h-48 flex items-center justify-center border-2 border-dashed border-gray-400">
+                    <p class="text-gray-600">Placeholder for Gameplay Video Embed</p>
+                </div>`;
+
+            const detailHtml = `
+                <main class="max-w-4xl mx-auto p-6 md:p-10 relative z-10">
+                    <div class="bg-white p-8 rounded-2xl shadow-2xl border-t-8 border-[#F0DADA] mb-8" 
+                        style="border-color: ${game.accentColor === 'bg-light-pink' ? '#F0DADA' : '#A5B4A8'};">
+                        <div class="flex items-center justify-between mb-6 border-b pb-4">
+                            <h2 class="text-4xl font-extrabold text-sage-dark flex items-center">
+                                <span class="text-5xl mr-3">${game.emoji}</span> ${game.title}
+                            </h2>
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">Tech Stack: <span class="font-bold text-[#82998A]">${game.techStack}</span></p>
+                                <p class="text-sm text-gray-500">Year: ${game.year}</p>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <h3 class="text-2xl font-bold text-sage-dark mt-6 mb-3">Project Overview</h3>
+                        <p class="text-gray-700 leading-relaxed mb-6">${game.detailDesc}</p>
+
+                        <!-- Technical Highlight -->
+                        <div class="${game.accentColor} p-5 rounded-xl shadow-inner mb-6">
+                            <h4 class="text-xl font-semibold text-sage-dark mb-2">Technical Highlight: ${game.technicalHighlight}</h4>
+                            <p class="text-gray-700 text-sm">${game.highlightText}</p>
+                        </div>
+
+                        <!-- Media Section (Updated with dynamic placeholders) -->
+                        <h3 class="text-2xl font-bold text-sage-dark mt-8 mb-4">Media Showcase</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Image / Screenshot Slot -->
+                            <div class="rounded-xl overflow-hidden shadow-lg h-48">
+                                ${screenshotHtml}
+                            </div>
+                            <!-- Video Embed Slot -->
+                           
+                        </div>
+                        
+                        <!-- External Link -->
+                        <div class="mt-8">
+                            <a href="${slug}" target="_blank" 
+                                class="w-full block text-center py-3 bg-[#82998A] text-gray-100 font-bold text-xl rounded-lg shadow-xl hover:bg-[#6c8273] transition transform hover:scale-[1.01]">
+                                Check out the game here! (Some might not have :p )
+                            </a>
+                        </div>
+                    </div>
+                </main>
+            `;
+            contentArea.innerHTML = detailHtml;
+        }
+
+        /**
+         * Main render loop that checks the state and renders the appropriate page.
+         */
+        function render() {
+            renderNav();
+            if (state.currentPage === 'index') {
+                renderIndex();
+            } else if (state.currentPage === 'detail' && state.currentGameSlug) {
+                renderDetail(state.currentGameSlug);
+            } else {
+                renderIndex(); // Default to index if state is bad
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = function() {
+            render();
+        };
+    </script>
+</body>
+</html>
